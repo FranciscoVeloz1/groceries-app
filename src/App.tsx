@@ -1,23 +1,45 @@
 import { useState } from "react";
 import { CategoriesPage } from "./pages/CategoriesPage";
 import { ProductListPage } from "./pages/ProductListPage";
-import type { Product } from "./types";
+import { CartPage } from "./pages/CartPage";
+import { useCart } from "./hooks/useCart";
 
-type View = { page: "categories" } | { page: "products"; categoryId: number };
+type View =
+  | { page: "categories" }
+  | { page: "products"; categoryId: number }
+  | { page: "cart" };
 
 const App = () => {
+  const cart = useCart();
   const [view, setView] = useState<View>({ page: "categories" });
+  const [prevView, setPrevView] = useState<View>({ page: "categories" });
 
-  const handleAddToCart = (_product: Product) => {
-    // Cart functionality will be added in Phase 4
+  const goToCart = () => {
+    setPrevView(view);
+    setView({ page: "cart" });
   };
+
+  if (view.page === "cart") {
+    return (
+      <CartPage
+        items={cart.items}
+        totalPrice={cart.totalPrice}
+        onBack={() => setView(prevView)}
+        onUpdateQuantity={cart.updateQuantity}
+        onRemove={cart.removeFromCart}
+        onClear={cart.clearCart}
+      />
+    );
+  }
 
   if (view.page === "products") {
     return (
       <ProductListPage
         categoryId={view.categoryId}
         onBack={() => setView({ page: "categories" })}
-        onAddToCart={handleAddToCart}
+        onAddToCart={cart.addToCart}
+        cartCount={cart.totalItems}
+        onCartClick={goToCart}
       />
     );
   }
@@ -27,6 +49,8 @@ const App = () => {
       onSelectCategory={(categoryId) =>
         setView({ page: "products", categoryId })
       }
+      cartCount={cart.totalItems}
+      onCartClick={goToCart}
     />
   );
 };

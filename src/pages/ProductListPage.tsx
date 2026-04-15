@@ -3,6 +3,7 @@ import { useProducts } from "../hooks/useProducts";
 import { useCategories } from "../hooks/useCategories";
 import { SearchBar } from "../components/SearchBar";
 import { ProductCard } from "../components/ProductCard";
+import { CartBadge } from "../components/CartBadge";
 import type { Product } from "../types";
 import styles from "./ProductListPage.module.css";
 
@@ -10,9 +11,17 @@ type Props = {
   categoryId: number;
   onBack: () => void;
   onAddToCart: (product: Product) => void;
+  cartCount: number;
+  onCartClick: () => void;
 };
 
-export function ProductListPage({ categoryId, onBack, onAddToCart }: Props) {
+export function ProductListPage({
+  categoryId,
+  onBack,
+  onAddToCart,
+  cartCount,
+  onCartClick,
+}: Props) {
   const [search, setSearch] = useState("");
   const products = useProducts(categoryId, search);
 
@@ -41,6 +50,7 @@ export function ProductListPage({ categoryId, onBack, onAddToCart }: Props) {
           </svg>
         </button>
         <h1 className={styles.title}>{categoryName}</h1>
+        <CartBadge count={cartCount} onClick={onCartClick} />
       </div>
       <SearchBar value={search} onChange={setSearch} />
       <div className={styles.grid}>

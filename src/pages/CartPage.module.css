@@ -1,0 +1,167 @@
+.page {
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-height: 100dvh;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.backBtn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text);
+}
+
+.backBtn:active {
+  background: var(--color-border);
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 700;
+  flex: 1;
+}
+
+.clearBtn {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ef4444;
+  padding: 6px 12px;
+  border-radius: 8px;
+}
+
+.clearBtn:active {
+  background: #fef2f2;
+}
+
+.empty {
+  text-align: center;
+  color: var(--color-text-secondary);
+  padding: 48px 0;
+  font-size: 16px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.categoryName {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.itemInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.itemName {
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.itemPrice {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.qtyBtn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.qtyBtn:active {
+  background: var(--color-bg);
+}
+
+.qty {
+  width: 24px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.removeBtn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ef4444;
+  margin-left: 4px;
+}
+
+.removeBtn:active {
+  background: #fef2f2;
+}
+
+.footer {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border);
+}
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.totalPrice {
+  font-size: 22px;
+}
