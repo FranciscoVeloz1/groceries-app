@@ -1,8 +1,9 @@
 .page {
-  padding: 24px 16px;
+  padding: 24px 16px calc(24px + var(--safe-bottom));
   display: flex;
   flex-direction: column;
   gap: 20px;
+  min-height: 100dvh;
 }
 
 .header {
@@ -14,6 +15,7 @@
 .title {
   font-size: 28px;
   font-weight: 700;
+  letter-spacing: -0.3px;
 }
 
 .grid {

@@ -1,5 +1,5 @@
 .page {
-  padding: 24px 16px;
+  padding: 24px 16px calc(24px + var(--safe-bottom));
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -9,17 +9,18 @@
 .header {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
 }
 
 .backBtn {
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--color-text);
+  flex-shrink: 0;
 }
 
 .backBtn:active {
@@ -30,14 +31,18 @@
   font-size: 24px;
   font-weight: 700;
   flex: 1;
+  letter-spacing: -0.3px;
 }
 
 .clearBtn {
   font-size: 14px;
   font-weight: 600;
   color: #ef4444;
-  padding: 6px 12px;
+  padding: 10px 14px;
   border-radius: 8px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
 }
 
 .clearBtn:active {
@@ -64,7 +69,7 @@
 }
 
 .categoryName {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   color: var(--color-text-secondary);
   text-transform: uppercase;
@@ -75,9 +80,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 10px;
   padding: 12px 14px;
   background: var(--color-surface);
-  border-radius: var(--radius);
+  border-radius: var(--radius-sm);
   box-shadow: var(--shadow);
 }
 
@@ -105,21 +111,24 @@
 .controls {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
   flex-shrink: 0;
 }
 
 .qtyBtn {
-  width: 30px;
-  height: 30px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   border: 1px solid var(--color-border);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 600;
   color: var(--color-text);
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
 }
 
 .qtyBtn:active {
@@ -127,21 +136,20 @@
 }
 
 .qty {
-  width: 24px;
+  width: 28px;
   text-align: center;
   font-size: 15px;
   font-weight: 600;
 }
 
 .removeBtn {
-  width: 30px;
-  height: 30px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #ef4444;
-  margin-left: 4px;
 }
 
 .removeBtn:active {
@@ -169,15 +177,17 @@
 .exportBtn {
   width: 100%;
   margin-top: 16px;
-  padding: 14px;
-  border-radius: var(--radius);
+  padding: 16px;
+  border-radius: var(--radius-sm);
   background: var(--color-primary);
   color: white;
   font-size: 16px;
   font-weight: 600;
+  min-height: 52px;
   transition: transform 0.15s;
 }
 
 .exportBtn:active {
   transform: scale(0.98);
+  background: #1d4ed8;
 }
