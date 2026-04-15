@@ -1,0 +1,79 @@
+[
+  {
+    "id": 1,
+    "name": "Dish Soap",
+    "image": "/images/dish-soap.webp",
+    "category": 1,
+    "price": 2.50
+  },
+  {
+    "id": 2,
+    "name": "Sponge Pack",
+    "image": "/images/sponge-pack.webp",
+    "category": 1,
+    "price": 1.20
+  },
+  {
+    "id": 3,
+    "name": "Floor Cleaner",
+    "image": "/images/floor-cleaner.webp",
+    "category": 2,
+    "price": 4.99
+  },
+  {
+    "id": 4,
+    "name": "Glass Cleaner",
+    "image": "/images/glass-cleaner.webp",
+    "category": 2,
+    "price": 3.75
+  },
+  {
+    "id": 5,
+    "name": "Dog Kibble 5kg",
+    "image": "/images/dog-kibble.webp",
+    "category": 3,
+    "price": 15.00
+  },
+  {
+    "id": 6,
+    "name": "Dog Treats",
+    "image": "/images/dog-treats.webp",
+    "category": 3,
+    "price": 5.50
+  },
+  {
+    "id": 7,
+    "name": "Rice 1kg",
+    "image": "/images/rice.webp",
+    "category": 4,
+    "price": 1.80
+  },
+  {
+    "id": 8,
+    "name": "Pasta 500g",
+    "image": "/images/pasta.webp",
+    "category": 4,
+    "price": 1.25
+  },
+  {
+    "id": 9,
+    "name": "Cooking Oil 1L",
+    "image": "/images/cooking-oil.webp",
+    "category": 4,
+    "price": 3.40
+  },
+  {
+    "id": 10,
+    "name": "Paper Towels",
+    "image": "/images/paper-towels.webp",
+    "category": 5,
+    "price": 2.99
+  },
+  {
+    "id": 11,
+    "name": "Trash Bags",
+    "image": "/images/trash-bags.webp",
+    "category": 5,
+    "price": 4.50
+  }
+]
