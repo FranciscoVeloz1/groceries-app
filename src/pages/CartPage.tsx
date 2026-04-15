@@ -1,5 +1,6 @@
 import type { CartItem } from "../hooks/useCart";
 import { useCategories } from "../hooks/useCategories";
+import { exportToExcel } from "../utils/exportToExcel";
 import styles from "./CartPage.module.css";
 
 type Props = {
@@ -138,6 +139,12 @@ export function CartPage({
                 ${totalPrice.toFixed(2)}
               </span>
             </div>
+            <button
+              className={styles.exportBtn}
+              onClick={() => exportToExcel(items)}
+            >
+              Export to Excel
+            </button>
           </div>
         </>
       )}
