@@ -12,7 +12,7 @@ export function ProductCard({ product, onAdd }: Props) {
     <div className={styles.card}>
       <div className={styles.imageWrapper}>
         <img
-          src={`${import.meta.env.BASE_URL}${product.image}`}
+          src={`${import.meta.env.BASE_URL}images/${product.image}`}
           alt={product.name}
           className={styles.image}
         />
