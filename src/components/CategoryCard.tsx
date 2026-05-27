@@ -18,11 +18,11 @@ export function CategoryCard({ name, onClick }: Props) {
 
 function getCategoryEmoji(name: string): string {
   const map: Record<string, string> = {
-    "Self cleaning": "\u{1F9F4}",
-    "Global cleaning": "\u{1F9F9}",
-    "Dogs food": "\u{1F436}",
-    Food: "\u{1F34E}",
-    Extras: "\u{1F4E6}",
+    "Limpieza personal": "\u{1F9F4}",
+    "Limpieza global": "\u{1F9F9}",
+    "Mascotas": "\u{1F436}",
+    "Comida": "\u{1F34E}",
+    "Extras": "\u{1F4E6}",
   };
   return map[name] ?? "\u{1F6D2}";
 }
