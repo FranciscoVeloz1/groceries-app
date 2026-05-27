@@ -2,182 +2,182 @@
   {
     "id": 2,
     "name": "Jabón De Manos",
-    "image": "src/images/jabon_manos.webp",
+    "image": "./src/images/jabon_manos.webp",
     "category": 1,
     "price": 50
   },
   {
     "id": 3,
     "name": "Shampoo",
-    "image": "src/images/shampoo.webp",
+    "image": "./src/images/shampoo.webp",
     "category": 1,
     "price": 40
   },
   {
     "id": 4,
     "name": "Acondicionador",
-    "image": "src/images/acondicionador.webp",
+    "image": "./src/images/acondicionador.webp",
     "category": 1,
     "price": 55
   },
   {
     "id": 5,
     "name": "Herbal Essences",
-    "image": "src/images/herbal_essences.webp",
+    "image": "./src/images/herbal_essences.webp",
     "category": 1,
     "price": 99
   },
   {
     "id": 6,
     "name": "Shampoo Pequeño",
-    "image": "src/images/shampoo_pequeno.webp",
+    "image": "./src/images/shampoo_pequeno.webp",
     "category": 1,
     "price": 19
   },
   {
     "id": 7,
     "name": "Esponja De Baño",
-    "image": "src/images/esponja_bano.webp",
+    "image": "./src/images/esponja_bano.webp",
     "category": 1,
     "price": 21
   },
   {
     "id": 8,
     "name": "Jabón Lirio",
-    "image": "src/images/jabon_lirio.webp",
+    "image": "./src/images/jabon_lirio.webp",
     "category": 1,
     "price": 46
   },
   {
     "id": 9,
     "name": "Jabón De Cuerpo",
-    "image": "src/images/jabon_cuerpo.webp",
+    "image": "./src/images/jabon_cuerpo.webp",
     "category": 1,
     "price": 58
   },
   {
     "id": 10,
     "name": "Hilo Dental",
-    "image": "src/images/hilo_dental.webp",
+    "image": "./src/images/hilo_dental.webp",
     "category": 1,
     "price": 80
   },
   {
     "id": 11,
     "name": "Espuma Afeitar",
-    "image": "src/images/espuma_afeitar.webp",
+    "image": "./src/images/espuma_afeitar.webp",
     "category": 1,
     "price": 99
   },
   {
     "id": 12,
     "name": "Pasta De Dientes",
-    "image": "src/images/pasta_de_dientes.webp",
+    "image": "./src/images/pasta_de_dientes.webp",
     "category": 1,
     "price": 55
   },
   {
     "id": 13,
     "name": "Rastrillos",
-    "image": "src/images/rastrillos.webp",
+    "image": "./src/images/rastrillos.webp",
     "category": 1,
     "price": 165
   },
   {
     "id": 14,
     "name": "Toallitas De Bebé",
-    "image": "src/images/toallitas_bebe.webp",
+    "image": "./src/images/toallitas_bebe.webp",
     "category": 1,
     "price": 109
   },
   {
     "id": 15,
     "name": "Papel De Baño",
-    "image": "src/images/papel_de_bano.webp",
+    "image": "./src/images/papel_de_bano.webp",
     "category": 1,
     "price": 169
   },
   {
     "id": 16,
     "name": "Enjuague Bucal",
-    "image": "src/images/enjuague_bucal.webp",
+    "image": "./src/images/enjuague_bucal.webp",
     "category": 1,
     "price": 89
   },
   {
     "id": 17,
     "name": "Pastillas De Baño",
-    "image": "src/images/pastillas_bano.webp",
+    "image": "./src/images/pastillas_bano.webp",
     "category": 1,
     "price": 59
   },
   {
     "id": 18,
     "name": "Tinte De Cabello",
-    "image": "src/images/tinte_cabello.webp",
+    "image": "./src/images/tinte_cabello.webp",
     "category": 1,
     "price": 105
   },
   {
     "id": 19,
     "name": "Hoja Rasuradora",
-    "image": "src/images/hoja_rasuradora.webp",
+    "image": "./src/images/hoja_rasuradora.webp",
     "category": 1,
     "price": 309
   },
   {
     "id": 20,
     "name": "Jabón De Cara",
-    "image": "src/images/jabon_cara.webp",
+    "image": "./src/images/jabon_cara.webp",
     "category": 1,
     "price": 792
   },
   {
     "id": 21,
     "name": "Cepillo De Dientes",
-    "image": "src/images/cepillo_dientes.webp",
+    "image": "./src/images/cepillo_dientes.webp",
     "category": 1,
     "price": 58
   },
   {
     "id": 22,
     "name": "Biocolageno",
-    "image": "src/images/biocolageno.webp",
+    "image": "./src/images/biocolageno.webp",
     "category": 1,
     "price": 60
   },
   {
     "id": 23,
     "name": "Exfoliante",
-    "image": "src/images/exfoliante.webp",
+    "image": "./src/images/exfoliante.webp",
     "category": 1,
     "price": 155
   },
   {
     "id": 24,
     "name": "Crema Corporal",
-    "image": "src/images/crema_corporal.webp",
+    "image": "./src/images/crema_corporal.webp",
     "category": 1,
     "price": 114
   },
   {
     "id": 25,
     "name": "Crema De Manos",
-    "image": "src/images/crema_manos.webp",
+    "image": "./src/images/crema_manos.webp",
     "category": 1,
     "price": 129
   },
   {
     "id": 26,
     "name": "Nani",
-    "image": "src/images/crema_nani.webp",
+    "image": "./src/images/crema_nani.webp",
     "category": 1,
     "price": 267
   },
   {
     "id": 27,
     "name": "Desodorante Hombre",
-    "image": "src/images/desodorante_hombre.webp",
+    "image": "./src/images/desodorante_hombre.webp",
     "category": 1,
     "price": 48
   }
