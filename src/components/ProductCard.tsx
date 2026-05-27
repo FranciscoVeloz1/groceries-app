@@ -1,4 +1,5 @@
 import type { Product } from "../types";
+
 import styles from "./ProductCard.module.css";
 
 type Props = {
@@ -10,11 +11,18 @@ export function ProductCard({ product, onAdd }: Props) {
   return (
     <div className={styles.card}>
       <div className={styles.imageWrapper}>
-        <img src={product.image} alt={product.name} className={styles.image} />
+        <img
+          src={`${import.meta.env.BASE_URL}${product.image}`}
+          alt={product.name}
+          className={styles.image}
+        />
       </div>
+
       <span className={styles.name}>{product.name}</span>
+
       <div className={styles.footer}>
         <span className={styles.price}>${product.price.toFixed(2)}</span>
+
         <button
           className={styles.addBtn}
           onClick={() => onAdd(product)}
