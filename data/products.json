@@ -950,5 +950,75 @@
     "image": "limones.webp",
     "category": 4,
     "price": 45
+  },
+  {
+    "id": 138,
+    "name": "Desodorante Mujer",
+    "image": "desodorante_mujer.webp",
+    "category": 1,
+    "price": 113
+  },
+  {
+    "id": 139,
+    "name": "Gel Antibacterial",
+    "image": "gel_antibacterial.webp",
+    "category": 1,
+    "price": 22
+  },
+  {
+    "id": 140,
+    "name": "Vitacilina",
+    "image": "vitacilina.webp",
+    "category": 1,
+    "price": 24
+  },
+  {
+    "id": 141,
+    "name": "Protector Solar",
+    "image": "protector_solar.webp",
+    "category": 1,
+    "price": 189
+  },
+  {
+    "id": 142,
+    "name": "Toallitas Desinfectantes",
+    "image": "toallitas_desinfectantes.webp",
+    "category": 1,
+    "price": 57
+  },
+  {
+    "id": 143,
+    "name": "Elvive Amarillo",
+    "image": "elvive_amarillo.webp",
+    "category": 1,
+    "price": 117
+  },
+  {
+    "id": 144,
+    "name": "Shine Spray Acondicionador",
+    "image": "shine_spray.webp",
+    "category": 1,
+    "price": 92
+  },
+  {
+    "id": 145,
+    "name": "Toallas Femeninas",
+    "image": "toallitas_femeninas.webp",
+    "category": 1,
+    "price": 102
+  },
+  {
+    "id": 146,
+    "name": "Acetona",
+    "image": "acetona.webp",
+    "category": 1,
+    "price": 15
+  },
+  {
+    "id": 147,
+    "name": "Hisopos",
+    "image": "hisopos.webp",
+    "category": 1,
+    "price": 20
   }
 ]
