@@ -180,5 +180,775 @@
     "image": "desodorante_hombre.webp",
     "category": 1,
     "price": 48
+  },
+  {
+    "id": 28,
+    "name": "Sobres Oreo",
+    "image": "sobres_oreo.webp",
+    "category": 3,
+    "price": 12.5
+  },
+  {
+    "id": 29,
+    "name": "Sobres Robin",
+    "image": "sobres_robin.webp",
+    "category": 3,
+    "price": 12.5
+  },
+  {
+    "id": 30,
+    "name": "Repelente Insectos",
+    "image": "repelente.webp",
+    "category": 3,
+    "price": 143
+  },
+  {
+    "id": 31,
+    "name": "Shampoo Perro",
+    "image": "shampoo_perro.webp",
+    "category": 3,
+    "price": 495
+  },
+  {
+    "id": 32,
+    "name": "Toalla Perro",
+    "image": "toalla.webp",
+    "category": 3,
+    "price": 149
+  },
+  {
+    "id": 33,
+    "name": "Collar",
+    "image": "collar.webp",
+    "category": 3,
+    "price": 51
+  },
+  {
+    "id": 34,
+    "name": "Pechera",
+    "image": "pechera.webp",
+    "category": 3,
+    "price": 194
+  },
+  {
+    "id": 35,
+    "name": "Correa",
+    "image": "correa.webp",
+    "category": 3,
+    "price": 220
+  },
+  {
+    "id": 36,
+    "name": "Cobija Perro",
+    "image": "cobija.webp",
+    "category": 3,
+    "price": 169
+  },
+  {
+    "id": 37,
+    "name": "Cojín Perro",
+    "image": "cojin_perro.webp",
+    "category": 3,
+    "price": 269
+  },
+  {
+    "id": 38,
+    "name": "Juguete Perro",
+    "image": "juguete_perro.webp",
+    "category": 3,
+    "price": 109
+  },
+  {
+    "id": 39,
+    "name": "Croquetas",
+    "image": "croquetas.webp",
+    "category": 3,
+    "price": 2400
+  },
+  {
+    "id": 40,
+    "name": "Jabón Ropa",
+    "image": "jabon_ropa.webp",
+    "category": 2,
+    "price": 175
+  },
+  {
+    "id": 41,
+    "name": "Suavitel",
+    "image": "suavitel.webp",
+    "category": 2,
+    "price": 68
+  },
+  {
+    "id": 42,
+    "name": "Vanish",
+    "image": "vanish.webp",
+    "category": 2,
+    "price": 65
+  },
+  {
+    "id": 43,
+    "name": "Jabón En Polvo",
+    "image": "jabon_polvo.webp",
+    "category": 2,
+    "price": 43
+  },
+  {
+    "id": 44,
+    "name": "Esponjas",
+    "image": "esponja.webp",
+    "category": 2,
+    "price": 21
+  },
+  {
+    "id": 45,
+    "name": "Guantes",
+    "image": "guantes.webp",
+    "category": 2,
+    "price": 20
+  },
+  {
+    "id": 46,
+    "name": "Jabón Trastes",
+    "image": "jabon_trastes.webp",
+    "category": 2,
+    "price": 83
+  },
+  {
+    "id": 47,
+    "name": "Antihongo",
+    "image": "antihongo.webp",
+    "category": 2,
+    "price": 51
+  },
+  {
+    "id": 48,
+    "name": "Cloro",
+    "image": "cloro.webp",
+    "category": 2,
+    "price": 42
+  },
+  {
+    "id": 49,
+    "name": "Fabuloso Oreo",
+    "image": "fabuloso_oreo.webp",
+    "category": 2,
+    "price": 119
+  },
+  {
+    "id": 50,
+    "name": "Fabuloso Robin",
+    "image": "fabuloso_robin.webp",
+    "category": 2,
+    "price": 28
+  },
+  {
+    "id": 51,
+    "name": "Aromatizante Carro",
+    "image": "aromatizante_carro.webp",
+    "category": 2,
+    "price": 25
+  },
+  {
+    "id": 52,
+    "name": "Cubetas",
+    "image": "cubeta.webp",
+    "category": 2,
+    "price": 35
+  },
+  {
+    "id": 53,
+    "name": "Pinol",
+    "image": "pinol.webp",
+    "category": 2,
+    "price": 49
+  },
+  {
+    "id": 54,
+    "name": "Bolsas Grandes",
+    "image": "bolsas_grandes.webp",
+    "category": 2,
+    "price": 42
+  },
+  {
+    "id": 55,
+    "name": "Bolsas Chicas",
+    "image": "bolsas_chicas.webp",
+    "category": 2,
+    "price": 39
+  },
+  {
+    "id": 56,
+    "name": "Servitoalla",
+    "image": "servitoalla.webp",
+    "category": 2,
+    "price": 30
+  },
+  {
+    "id": 57,
+    "name": "Vasos Desechables",
+    "image": "vasos_desechables.webp",
+    "category": 2,
+    "price": 26
+  },
+  {
+    "id": 58,
+    "name": "Platos Desechables",
+    "image": "platos_desechables.webp",
+    "category": 2,
+    "price": 31
+  },
+  {
+    "id": 59,
+    "name": "Servilletas",
+    "image": "servilletas.webp",
+    "category": 2,
+    "price": 36
+  },
+  {
+    "id": 60,
+    "name": "Spray Cabello",
+    "image": "spray_cabello.webp",
+    "category": 2,
+    "price": 70
+  },
+  {
+    "id": 61,
+    "name": "Aromatizante Spray",
+    "image": "aromatizante_spray.webp",
+    "category": 2,
+    "price": 34
+  },
+  {
+    "id": 62,
+    "name": "Lysol",
+    "image": "lysol.webp",
+    "category": 2,
+    "price": 169
+  },
+  {
+    "id": 63,
+    "name": "Focos",
+    "image": "focos.webp",
+    "category": 2,
+    "price": 40
+  },
+  {
+    "id": 64,
+    "name": "Windex",
+    "image": "windex.webp",
+    "category": 2,
+    "price": 79
+  },
+  {
+    "id": 65,
+    "name": "Limpiador Muebles",
+    "image": "limpiador_muebles.webp",
+    "category": 2,
+    "price": 101
+  },
+  {
+    "id": 66,
+    "name": "Magitelas",
+    "image": "magitelas.webp",
+    "category": 2,
+    "price": 95
+  },
+  {
+    "id": 67,
+    "name": "Curitas",
+    "image": "curitas.webp",
+    "category": 2,
+    "price": 46
+  },
+  {
+    "id": 68,
+    "name": "Bolsas Transparentes",
+    "image": "bolsa_transparentes.webp",
+    "category": 2,
+    "price": 25
+  },
+  {
+    "id": 69,
+    "name": "Toalla Secado Manos",
+    "image": "toalla_manos.webp",
+    "category": 2,
+    "price": 69
+  },
+  {
+    "id": 70,
+    "name": "Jabon Carro",
+    "image": "jabon_carro.webp",
+    "category": 2,
+    "price": 85
+  },
+  {
+    "id": 71,
+    "name": "Silicon",
+    "image": "silicon.webp",
+    "category": 2,
+    "price": 69
+  },
+  {
+    "id": 72,
+    "name": "Aromatizante En Bote",
+    "image": "aromatizante_bote.webp",
+    "category": 2,
+    "price": 122
+  },
+  {
+    "id": 73,
+    "name": "Maquina Aromatizante",
+    "image": "maquina_aromatizante.webp",
+    "category": 2,
+    "price": 109
+  },
+  {
+    "id": 74,
+    "name": "Cafe",
+    "image": "cafe.webp",
+    "category": 4,
+    "price": 187
+  },
+  {
+    "id": 75,
+    "name": "Salsa Picante",
+    "image": "salsa_picante.webp",
+    "category": 4,
+    "price": 15
+  },
+  {
+    "id": 76,
+    "name": "Salsa Roja",
+    "image": "salsa_roja.webp",
+    "category": 4,
+    "price": 38
+  },
+  {
+    "id": 77,
+    "name": "Salsa Verde",
+    "image": "salsa_verde.webp",
+    "category": 4,
+    "price": 37
+  },
+  {
+    "id": 78,
+    "name": "Salsa De Guacamole",
+    "image": "salsa_guacamole.webp",
+    "category": 4,
+    "price": 50
+  },
+  {
+    "id": 79,
+    "name": "Papitas Pequeñas",
+    "image": "papitas_pequenas.webp",
+    "category": 4,
+    "price": 15
+  },
+  {
+    "id": 80,
+    "name": "Papitas Grandes",
+    "image": "papitas_grandes.webp",
+    "category": 4,
+    "price": 61
+  },
+  {
+    "id": 81,
+    "name": "Frijoles",
+    "image": "frijoles.webp",
+    "category": 4,
+    "price": 18
+  },
+  {
+    "id": 82,
+    "name": "Huevo",
+    "image": "huevo.webp",
+    "category": 4,
+    "price": 67
+  },
+  {
+    "id": 83,
+    "name": "Queso",
+    "image": "queso.webp",
+    "category": 4,
+    "price": 115
+  },
+  {
+    "id": 84,
+    "name": "Queso Panela",
+    "image": "queso_panela.webp",
+    "category": 4,
+    "price": 38
+  },
+  {
+    "id": 85,
+    "name": "Leche",
+    "image": "leche.webp",
+    "category": 4,
+    "price": 54
+  },
+  {
+    "id": 86,
+    "name": "Jitomates",
+    "image": "jitomate.webp",
+    "category": 4,
+    "price": 55
+  },
+  {
+    "id": 87,
+    "name": "Cebolla",
+    "image": "cebolla.webp",
+    "category": 4,
+    "price": 26
+  },
+  {
+    "id": 88,
+    "name": "Ajo",
+    "image": "ajo.webp",
+    "category": 4,
+    "price": 45
+  },
+  {
+    "id": 89,
+    "name": "Calabaza",
+    "image": "calabaza.webp",
+    "category": 4,
+    "price": 37
+  },
+  {
+    "id": 90,
+    "name": "Zanahoria",
+    "image": "zanahoria.webp",
+    "category": 4,
+    "price": 18
+  },
+  {
+    "id": 91,
+    "name": "Mantequilla",
+    "image": "mantequilla.webp",
+    "category": 4,
+    "price": 25
+  },
+  {
+    "id": 92,
+    "name": "Yogurth",
+    "image": "yogurth.webp",
+    "category": 4,
+    "price": 62
+  },
+  {
+    "id": 93,
+    "name": "Dannette",
+    "image": "danette.webp",
+    "category": 4,
+    "price": 36
+  },
+  {
+    "id": 94,
+    "name": "Tostadas",
+    "image": "tostadas.webp",
+    "category": 4,
+    "price": 41
+  },
+  {
+    "id": 95,
+    "name": "Bolillo",
+    "image": "bolillo.webp",
+    "category": 4,
+    "price": 2
+  },
+  {
+    "id": 96,
+    "name": "Chile Serrano",
+    "image": "chile_serrano.webp",
+    "category": 4,
+    "price": 89
+  },
+  {
+    "id": 97,
+    "name": "Chile De Arbol",
+    "image": "chile_arbol.webp",
+    "category": 4,
+    "price": 25
+  },
+  {
+    "id": 98,
+    "name": "Hojas De Laurel",
+    "image": "hojas_laurel.webp",
+    "category": 4,
+    "price": 15
+  },
+  {
+    "id": 99,
+    "name": "Pan Integral",
+    "image": "pan_integral.webp",
+    "category": 4,
+    "price": 59
+  },
+  {
+    "id": 100,
+    "name": "Garrafon De Agua",
+    "image": "garrafon_agua.webp",
+    "category": 4,
+    "price": 59
+  },
+  {
+    "id": 101,
+    "name": "Sobres De Agua",
+    "image": "sobre_agua.webp",
+    "category": 4,
+    "price": 6.5
+  },
+  {
+    "id": 102,
+    "name": "Sopa Maruchan",
+    "image": "sopa_maruchan.webp",
+    "category": 4,
+    "price": 15
+  },
+  {
+    "id": 103,
+    "name": "Pasta",
+    "image": "pasta.webp",
+    "category": 4,
+    "price": 14
+  },
+  {
+    "id": 104,
+    "name": "Papas",
+    "image": "papas.webp",
+    "category": 4,
+    "price": 63
+  },
+  {
+    "id": 105,
+    "name": "Verduras Congeladas",
+    "image": "verdura_congelada.webp",
+    "category": 4,
+    "price": 34
+  },
+  {
+    "id": 106,
+    "name": "Helado",
+    "image": "helado.webp",
+    "category": 4,
+    "price": 76
+  },
+  {
+    "id": 107,
+    "name": "Paletas De Helado",
+    "image": "paleta_helado.webp",
+    "category": 4,
+    "price": 125
+  },
+  {
+    "id": 108,
+    "name": "Durazno",
+    "image": "durazno.webp",
+    "category": 4,
+    "price": 74
+  },
+  {
+    "id": 109,
+    "name": "Manzana",
+    "image": "manzana.webp",
+    "category": 4,
+    "price": 59
+  },
+  {
+    "id": 110,
+    "name": "Ciruelas",
+    "image": "ciruela.webp",
+    "category": 4,
+    "price": 89
+  },
+  {
+    "id": 111,
+    "name": "Platano",
+    "image": "platano.webp",
+    "category": 4,
+    "price": 37
+  },
+  {
+    "id": 112,
+    "name": "Fresas",
+    "image": "fresas.webp",
+    "category": 4,
+    "price": 69
+  },
+  {
+    "id": 113,
+    "name": "Uvas",
+    "image": "uvas.webp",
+    "category": 4,
+    "price": 119
+  },
+  {
+    "id": 114,
+    "name": "Elote",
+    "image": "elote.webp",
+    "category": 4,
+    "price": 104
+  },
+  {
+    "id": 115,
+    "name": "Cereal",
+    "image": "cereal.webp",
+    "category": 4,
+    "price": 71
+  },
+  {
+    "id": 116,
+    "name": "Galletas Maria",
+    "image": "galletas_maria.webp",
+    "category": 4,
+    "price": 51
+  },
+  {
+    "id": 117,
+    "name": "Crakets",
+    "image": "crakets.webp",
+    "category": 4,
+    "price": 39
+  },
+  {
+    "id": 118,
+    "name": "Donas",
+    "image": "donas.webp",
+    "category": 4,
+    "price": 56
+  },
+  {
+    "id": 119,
+    "name": "Pan",
+    "image": "pan.webp",
+    "category": 4,
+    "price": 55
+  },
+  {
+    "id": 120,
+    "name": "Galletas De Vainilla",
+    "image": "galletas_vainilla.webp",
+    "category": 4,
+    "price": 39
+  },
+  {
+    "id": 121,
+    "name": "Licuado",
+    "image": "licuado.webp",
+    "category": 4,
+    "price": 37
+  },
+  {
+    "id": 122,
+    "name": "Polvo De Vainilla",
+    "image": "polvo_vainilla.webp",
+    "category": 4,
+    "price": 33
+  },
+  {
+    "id": 123,
+    "name": "Refresco",
+    "image": "refresco.webp",
+    "category": 4,
+    "price": 19
+  },
+  {
+    "id": 124,
+    "name": "Agua",
+    "image": "agua.webp",
+    "category": 4,
+    "price": 11
+  },
+  {
+    "id": 125,
+    "name": "Electrolitos",
+    "image": "electrolitos.webp",
+    "category": 4,
+    "price": 27
+  },
+  {
+    "id": 126,
+    "name": "Aceite",
+    "image": "aceite.webp",
+    "category": 4,
+    "price": 48
+  },
+  {
+    "id": 127,
+    "name": "Pan Hamburguesa",
+    "image": "pan_hamburguesa.webp",
+    "category": 4,
+    "price": 72
+  },
+  {
+    "id": 128,
+    "name": "Pollo Frito",
+    "image": "pollo_frito.webp",
+    "category": 4,
+    "price": 245
+  },
+  {
+    "id": 129,
+    "name": "Captsup",
+    "image": "captsup.webp",
+    "category": 4,
+    "price": 44
+  },
+  {
+    "id": 130,
+    "name": "Crema",
+    "image": "crema.webp",
+    "category": 4,
+    "price": 25
+  },
+  {
+    "id": 131,
+    "name": "Queso Americano",
+    "image": "queso_americano.webp",
+    "category": 4,
+    "price": 33
+  },
+  {
+    "id": 132,
+    "name": "Papas Fritas",
+    "image": "papas_fritas.webp",
+    "category": 4,
+    "price": 40
+  },
+  {
+    "id": 133,
+    "name": "Papas Gajo",
+    "image": "papas_gajo.webp",
+    "category": 4,
+    "price": 95
+  },
+  {
+    "id": 134,
+    "name": "Mayonesa",
+    "image": "mayonesa.webp",
+    "category": 4,
+    "price": 75
+  },
+  {
+    "id": 135,
+    "name": "Chiles Jalapeños",
+    "image": "jalapenos.webp",
+    "category": 4,
+    "price": 20
+  },
+  {
+    "id": 136,
+    "name": "Aguacate",
+    "image": "aguacate.webp",
+    "category": 4,
+    "price": 119
+  },
+  {
+    "id": 137,
+    "name": "Limones",
+    "image": "limones.webp",
+    "category": 4,
+    "price": 45
   }
 ]
