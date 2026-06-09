@@ -1,7 +1,8 @@
 import { useRef } from "react";
 import type { CartItem } from "../hooks/useCart";
 import { useCategories } from "../hooks/useCategories";
-import { exportGroceryList } from "../utils/exportGroceryList";
+import { exportToExcel } from "../utils/exportToExcel";
+import { exportToJson } from "../utils/exportToJson";
 import { parseGroceryList } from "../utils/groceryList";
 import styles from "./CartPage.module.css";
 
@@ -175,12 +176,20 @@ export function CartPage({
                 ${totalPrice.toFixed(2)}
               </span>
             </div>
-            <button
-              className={styles.exportBtn}
-              onClick={() => exportGroceryList(items)}
-            >
-              Export
-            </button>
+            <div className={styles.exportActions}>
+              <button
+                className={styles.exportBtn}
+                onClick={() => exportToExcel(items)}
+              >
+                Export Excel
+              </button>
+              <button
+                className={styles.exportBtnSecondary}
+                onClick={() => exportToJson(items)}
+              >
+                Export JSON
+              </button>
+            </div>
           </div>
         </>
       )}

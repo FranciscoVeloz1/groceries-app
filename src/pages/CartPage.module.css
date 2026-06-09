@@ -195,9 +195,14 @@
   font-size: 22px;
 }
 
-.exportBtn {
-  width: 100%;
+.exportActions {
+  display: flex;
+  gap: 10px;
   margin-top: 16px;
+}
+
+.exportBtn {
+  flex: 1;
   padding: 16px;
   border-radius: var(--radius-sm);
   background: var(--color-primary);
@@ -211,4 +216,22 @@
 .exportBtn:active {
   transform: scale(0.98);
   background: #1d4ed8;
+}
+
+.exportBtnSecondary {
+  flex: 1;
+  padding: 16px;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-primary);
+  font-size: 16px;
+  font-weight: 600;
+  min-height: 52px;
+  border: 1px solid var(--color-primary);
+  transition: transform 0.15s;
+}
+
+.exportBtnSecondary:active {
+  transform: scale(0.98);
+  background: #eff6ff;
 }
