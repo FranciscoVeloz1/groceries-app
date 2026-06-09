@@ -54,6 +54,22 @@ export function useCart() {
     setItems(new Map());
   }, []);
 
+  const importCart = useCallback((incoming: CartItem[]) => {
+    const next = new Map<number, CartItem>();
+    for (const item of incoming) {
+      const existing = next.get(item.product.id);
+      if (existing) {
+        next.set(item.product.id, {
+          ...existing,
+          quantity: existing.quantity + item.quantity,
+        });
+      } else {
+        next.set(item.product.id, item);
+      }
+    }
+    setItems(next);
+  }, []);
+
   const cartItems = useMemo(() => Array.from(items.values()), [items]);
 
   const totalItems = useMemo(
@@ -76,6 +92,7 @@ export function useCart() {
     removeFromCart,
     updateQuantity,
     clearCart,
+    importCart,
     totalItems,
     totalPrice,
   };

@@ -28,6 +28,7 @@ const App = () => {
         onUpdateQuantity={cart.updateQuantity}
         onRemove={cart.removeFromCart}
         onClear={cart.clearCart}
+        onImport={cart.importCart}
       />
     );
   }

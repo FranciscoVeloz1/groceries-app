@@ -1,6 +1,8 @@
+import { useRef } from "react";
 import type { CartItem } from "../hooks/useCart";
 import { useCategories } from "../hooks/useCategories";
-import { exportToExcel } from "../utils/exportToExcel";
+import { exportGroceryList } from "../utils/exportGroceryList";
+import { parseGroceryList } from "../utils/groceryList";
 import styles from "./CartPage.module.css";
 
 type Props = {
@@ -10,6 +12,7 @@ type Props = {
   onUpdateQuantity: (productId: number, quantity: number) => void;
   onRemove: (productId: number) => void;
   onClear: () => void;
+  onImport: (items: CartItem[]) => void;
 };
 
 export function CartPage({
@@ -19,8 +22,29 @@ export function CartPage({
   onUpdateQuantity,
   onRemove,
   onClear,
+  onImport,
 }: Props) {
   const { categories } = useCategories();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleImportClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    try {
+      const raw = await file.text();
+      const parsed = parseGroceryList(raw);
+      onImport(parsed);
+    } catch (err) {
+      alert(err instanceof Error ? err.message : "Failed to import file.");
+    }
+
+    e.target.value = "";
+  };
 
   const grouped = new Map<number, CartItem[]>();
   for (const item of items) {
@@ -51,11 +75,23 @@ export function CartPage({
           </svg>
         </button>
         <h1 className={styles.title}>Cart</h1>
-        {items.length > 0 && (
-          <button className={styles.clearBtn} onClick={onClear}>
-            Clear
+        <div className={styles.headerActions}>
+          <button className={styles.importBtn} onClick={handleImportClick}>
+            Import
           </button>
-        )}
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="application/json,.json"
+            onChange={handleFileChange}
+            hidden
+          />
+          {items.length > 0 && (
+            <button className={styles.clearBtn} onClick={onClear}>
+              Clear
+            </button>
+          )}
+        </div>
       </div>
 
       {items.length === 0 ? (
@@ -141,9 +177,9 @@ export function CartPage({
             </div>
             <button
               className={styles.exportBtn}
-              onClick={() => exportToExcel(items)}
+              onClick={() => exportGroceryList(items)}
             >
-              Export to Excel
+              Export
             </button>
           </div>
         </>

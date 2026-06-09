@@ -34,6 +34,27 @@
   letter-spacing: -0.3px;
 }
 
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.importBtn {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-primary);
+  padding: 10px 14px;
+  border-radius: 8px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+.importBtn:active {
+  background: #eff6ff;
+}
+
 .clearBtn {
   font-size: 14px;
   font-weight: 600;

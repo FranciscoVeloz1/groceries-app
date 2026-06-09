@@ -1,6 +1,8 @@
 import type { CartItem } from "../hooks/useCart";
 import { categories } from "../data/categories";
 import type { Categories } from "../types";
+import { downloadFile } from "./downloadFile";
+import { FILE_BASENAME } from "./groceryList";
 
 export async function exportToExcel(items: CartItem[]) {
   const ExcelJS = await import("exceljs");
@@ -100,10 +102,5 @@ export async function exportToExcel(items: CartItem[]) {
   const blob = new Blob([buffer], {
     type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
   });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = "lista-de-mandado.xlsx";
-  a.click();
-  URL.revokeObjectURL(url);
+  downloadFile(blob, `${FILE_BASENAME}.xlsx`);
 }
