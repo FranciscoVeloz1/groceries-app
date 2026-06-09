@@ -39,6 +39,7 @@ const App = () => {
         categoryId={view.categoryId}
         onBack={() => setView({ page: "categories" })}
         onAddToCart={cart.addToCart}
+        onAddCustom={cart.addCustomItem}
         cartCount={cart.totalItems}
         onCartClick={goToCart}
       />

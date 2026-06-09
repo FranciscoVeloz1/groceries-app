@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import type { Product } from "../types";
 
 export type CartItem = {
@@ -8,6 +8,7 @@ export type CartItem = {
 
 export function useCart() {
   const [items, setItems] = useState<Map<number, CartItem>>(new Map());
+  const customIdRef = useRef(-1);
 
   const addToCart = useCallback((product: Product) => {
     setItems((prev) => {
@@ -54,6 +55,24 @@ export function useCart() {
     setItems(new Map());
   }, []);
 
+  const addCustomItem = useCallback(
+    ({ name, quantity, price }: { name: string; quantity: number; price: number }) => {
+      const product: Product = {
+        id: customIdRef.current--,
+        name,
+        image: "",
+        category: 5,
+        price,
+      };
+      setItems((prev) => {
+        const next = new Map(prev);
+        next.set(product.id, { product, quantity });
+        return next;
+      });
+    },
+    [],
+  );
+
   const importCart = useCallback((incoming: CartItem[]) => {
     const next = new Map<number, CartItem>();
     for (const item of incoming) {
@@ -92,6 +111,7 @@ export function useCart() {
     removeFromCart,
     updateQuantity,
     clearCart,
+    addCustomItem,
     importCart,
     totalItems,
     totalPrice,

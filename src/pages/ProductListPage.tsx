@@ -11,6 +11,7 @@ type Props = {
   categoryId: number;
   onBack: () => void;
   onAddToCart: (product: Product) => void;
+  onAddCustom: (item: { name: string; quantity: number; price: number }) => void;
   cartCount: number;
   onCartClick: () => void;
 };
@@ -19,6 +20,7 @@ export function ProductListPage({
   categoryId,
   onBack,
   onAddToCart,
+  onAddCustom,
   cartCount,
   onCartClick,
 }: Props) {
@@ -27,6 +29,21 @@ export function ProductListPage({
 
   const { categories } = useCategories();
   const categoryName = categories[categoryId as keyof typeof categories];
+
+  const [customName, setCustomName] = useState("");
+  const [customQty, setCustomQty] = useState(1);
+  const [customPrice, setCustomPrice] = useState(0);
+
+  const handleAddCustom = (e: React.FormEvent) => {
+    e.preventDefault();
+    const trimmed = customName.trim();
+    if (!trimmed || customQty < 1 || customPrice < 0) return;
+
+    onAddCustom({ name: trimmed, quantity: customQty, price: customPrice });
+    setCustomName("");
+    setCustomQty(1);
+    setCustomPrice(0);
+  };
 
   return (
     <div className={styles.page}>
@@ -53,6 +70,54 @@ export function ProductListPage({
         <CartBadge count={cartCount} onClick={onCartClick} />
       </div>
       <SearchBar value={search} onChange={setSearch} />
+
+      {categoryId === 5 && (
+        <form className={styles.addForm} onSubmit={handleAddCustom}>
+          <h2 className={styles.addFormTitle}>Add item manually</h2>
+          <div className={styles.addFormFields}>
+            <label className={styles.addField}>
+              <span className={styles.addLabel}>Name</span>
+              <input
+                className={styles.addInput}
+                type="text"
+                placeholder="Product name"
+                value={customName}
+                onChange={(e) => setCustomName(e.target.value)}
+                required
+              />
+            </label>
+            <label className={styles.addField}>
+              <span className={styles.addLabel}>Quantity</span>
+              <input
+                className={styles.addInput}
+                type="number"
+                placeholder="1"
+                min={1}
+                value={customQty}
+                onChange={(e) => setCustomQty(Number(e.target.value))}
+                required
+              />
+            </label>
+            <label className={styles.addField}>
+              <span className={styles.addLabel}>Unit price</span>
+              <input
+                className={styles.addInput}
+                type="number"
+                placeholder="0.00"
+                min={0}
+                step={0.01}
+                value={customPrice}
+                onChange={(e) => setCustomPrice(Number(e.target.value))}
+                required
+              />
+            </label>
+          </div>
+          <button className={styles.addBtn} type="submit">
+            Add
+          </button>
+        </form>
+      )}
+
       <div className={styles.grid}>
         {products.map((product) => (
           <ProductCard key={product.id} product={product} onAdd={onAddToCart} />
