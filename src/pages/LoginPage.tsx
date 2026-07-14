@@ -1,15 +1,13 @@
 import { useEffect, useState, type FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ApiError } from '../api/http';
 import { useAuth } from '../auth/AuthProvider';
+import { ROUTES } from '../config/routes';
 import styles from './LoginPage.module.css';
 
-type Props = {
-  onSuccessAdmin: () => void;
-  onBack: () => void;
-};
-
-export function LoginPage({ onSuccessAdmin, onBack }: Props) {
+export function LoginPage() {
   const { login, logout, isGroceriesAdmin, status } = useAuth();
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [submitting, setSubmitting] = useState(false);
@@ -17,9 +15,9 @@ export function LoginPage({ onSuccessAdmin, onBack }: Props) {
 
   useEffect(() => {
     if (status === 'authenticated' && isGroceriesAdmin) {
-      onSuccessAdmin();
+      navigate(ROUTES.ADMIN_PRODUCTS, { replace: true });
     }
-  }, [isGroceriesAdmin, onSuccessAdmin, status]);
+  }, [isGroceriesAdmin, navigate, status]);
 
   useEffect(() => {
     if (status === 'authenticated' && !isGroceriesAdmin) {
@@ -31,7 +29,6 @@ export function LoginPage({ onSuccessAdmin, onBack }: Props) {
     event.preventDefault();
     setError(null);
     setSubmitting(true);
-
     try {
       await login(email.trim(), password);
     } catch (caught) {
@@ -55,7 +52,12 @@ export function LoginPage({ onSuccessAdmin, onBack }: Props) {
   return (
     <div className={styles.page}>
       <div className={styles.header}>
-        <button type="button" className={styles.backBtn} onClick={onBack} aria-label="Volver">
+        <button
+          type="button"
+          className={styles.backBtn}
+          onClick={() => navigate(ROUTES.CATEGORIES)}
+          aria-label="Volver"
+        >
           ←
         </button>
         <h1 className={styles.title}>Admin</h1>
@@ -73,12 +75,9 @@ export function LoginPage({ onSuccessAdmin, onBack }: Props) {
           type="email"
           autoComplete="username"
           value={email}
-          onChange={(event) => {
-            setEmail(event.target.value);
-          }}
+          onChange={(e) => setEmail(e.target.value)}
           required
         />
-
         <label className={styles.label} htmlFor="admin-password">
           Contraseña
         </label>
@@ -88,22 +87,24 @@ export function LoginPage({ onSuccessAdmin, onBack }: Props) {
           type="password"
           autoComplete="current-password"
           value={password}
-          onChange={(event) => {
-            setPassword(event.target.value);
-          }}
+          onChange={(e) => setPassword(e.target.value)}
           required
           minLength={8}
         />
-
         {error ? <p className={styles.error}>{error}</p> : null}
-
         <button type="submit" className={styles.submit} disabled={submitting}>
           {submitting ? 'Entrando…' : 'Entrar'}
         </button>
       </form>
 
       {status === 'authenticated' && !isGroceriesAdmin ? (
-        <button type="button" className={styles.logout} onClick={handleLogout}>
+        <button
+          type="button"
+          className={styles.logout}
+          onClick={() => {
+            void handleLogout();
+          }}
+        >
           Cerrar sesión
         </button>
       ) : null}

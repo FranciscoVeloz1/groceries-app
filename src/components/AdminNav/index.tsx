@@ -1,53 +1,44 @@
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../auth/AuthProvider';
+import { ROUTES } from '../../config/routes';
 import styles from './AdminNav.module.css';
 
-export type AdminPage = 'admin-products' | 'admin-shopping' | 'admin-history';
+export function AdminNav() {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
 
-type Props = {
-  active: AdminPage;
-  onNavigate: (page: AdminPage) => void;
-  onLogout: () => void;
-  onBrowseCatalog?: () => void;
-};
+  const handleLogout = async () => {
+    await logout();
+    navigate(ROUTES.CATEGORIES);
+  };
 
-export function AdminNav({ active, onNavigate, onLogout, onBrowseCatalog }: Props) {
+  const linkClass = ({ isActive }: { isActive: boolean }) =>
+    isActive ? styles.linkActive : styles.link;
+
   return (
     <nav className={styles.nav} aria-label="Admin">
       <div className={styles.links}>
-        <button
-          type="button"
-          className={active === 'admin-products' ? styles.linkActive : styles.link}
-          onClick={() => {
-            onNavigate('admin-products');
-          }}
-        >
+        <NavLink to={ROUTES.ADMIN_PRODUCTS} className={linkClass}>
           Productos
-        </button>
-        <button
-          type="button"
-          className={active === 'admin-shopping' ? styles.linkActive : styles.link}
-          onClick={() => {
-            onNavigate('admin-shopping');
-          }}
-        >
+        </NavLink>
+        <NavLink to={ROUTES.ADMIN_SHOPPING} className={linkClass}>
           Compra
-        </button>
-        <button
-          type="button"
-          className={active === 'admin-history' ? styles.linkActive : styles.link}
-          onClick={() => {
-            onNavigate('admin-history');
-          }}
-        >
+        </NavLink>
+        <NavLink to={ROUTES.ADMIN_HISTORY} className={linkClass}>
           Historial
-        </button>
+        </NavLink>
       </div>
       <div className={styles.actions}>
-        {onBrowseCatalog ? (
-          <button type="button" className={styles.secondary} onClick={onBrowseCatalog}>
-            Catálogo
-          </button>
-        ) : null}
-        <button type="button" className={styles.logout} onClick={onLogout}>
+        <NavLink to={ROUTES.CATEGORIES} className={styles.secondary}>
+          Catálogo
+        </NavLink>
+        <button
+          type="button"
+          className={styles.logout}
+          onClick={() => {
+            void handleLogout();
+          }}
+        >
           Salir
         </button>
       </div>

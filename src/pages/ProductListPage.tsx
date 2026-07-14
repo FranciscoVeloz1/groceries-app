@@ -1,36 +1,26 @@
-import { useState } from "react";
-import { useProducts } from "../hooks/useProducts";
-import { useCategories } from "../hooks/useCategories";
-import { SearchBar } from "../components/SearchBar";
-import { ProductCard } from "../components/ProductCard";
-import { CartBadge } from "../components/CartBadge";
-import type { Product } from '../types/domain';
-import styles from "./ProductListPage.module.css";
+import { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useProducts } from '../hooks/useProducts';
+import { useCategories } from '../hooks/useCategories';
+import { useCart } from '../hooks/useCart';
+import { ROUTES } from '../config/routes';
+import { SearchBar } from '../components/SearchBar';
+import { ProductCard } from '../components/ProductCard';
+import { CartBadge } from '../components/CartBadge';
+import styles from './ProductListPage.module.css';
 
-type Props = {
-  categoryId: number;
-  onBack: () => void;
-  onAddToCart: (product: Product) => void;
-  onAddCustom: (item: { name: string; quantity: number; price: number }) => void;
-  cartCount: number;
-  onCartClick: () => void;
-};
-
-export function ProductListPage({
-  categoryId,
-  onBack,
-  onAddToCart,
-  onAddCustom,
-  cartCount,
-  onCartClick,
-}: Props) {
-  const [search, setSearch] = useState("");
-  const products = useProducts(categoryId, search);
-
+export function ProductListPage() {
+  const { categoryId } = useParams<{ categoryId: string }>();
+  const id = Number(categoryId);
+  const [search, setSearch] = useState('');
+  const products = useProducts(id, search);
   const { categories } = useCategories();
-  const categoryName = categories[categoryId as keyof typeof categories];
+  const { addToCart, addCustomItem, totalItems } = useCart();
+  const navigate = useNavigate();
 
-  const [customName, setCustomName] = useState("");
+  const categoryName = categories[id as keyof typeof categories];
+
+  const [customName, setCustomName] = useState('');
   const [customQty, setCustomQty] = useState(1);
   const [customPrice, setCustomPrice] = useState(0);
 
@@ -38,9 +28,8 @@ export function ProductListPage({
     e.preventDefault();
     const trimmed = customName.trim();
     if (!trimmed || customQty < 1 || customPrice < 0) return;
-
-    onAddCustom({ name: trimmed, quantity: customQty, price: customPrice });
-    setCustomName("");
+    addCustomItem({ name: trimmed, quantity: customQty, price: customPrice });
+    setCustomName('');
     setCustomQty(1);
     setCustomPrice(0);
   };
@@ -50,7 +39,7 @@ export function ProductListPage({
       <div className={styles.header}>
         <button
           className={styles.backBtn}
-          onClick={onBack}
+          onClick={() => navigate(ROUTES.CATEGORIES)}
           aria-label="Go back"
         >
           <svg
@@ -67,11 +56,11 @@ export function ProductListPage({
           </svg>
         </button>
         <h1 className={styles.title}>{categoryName}</h1>
-        <CartBadge count={cartCount} onClick={onCartClick} />
+        <CartBadge count={totalItems} onClick={() => navigate(ROUTES.CART)} />
       </div>
       <SearchBar value={search} onChange={setSearch} />
 
-      {categoryId === 5 && (
+      {id === 5 && (
         <form className={styles.addForm} onSubmit={handleAddCustom}>
           <h2 className={styles.addFormTitle}>Add item manually</h2>
           <div className={styles.addFormFields}>
@@ -120,11 +109,9 @@ export function ProductListPage({
 
       <div className={styles.grid}>
         {products.map((product) => (
-          <ProductCard key={product.id} product={product} onAdd={onAddToCart} />
+          <ProductCard key={product.id} product={product} onAdd={addToCart} />
         ))}
-        {products.length === 0 && (
-          <p className={styles.empty}>No products found.</p>
-        )}
+        {products.length === 0 && <p className={styles.empty}>No products found.</p>}
       </div>
     </div>
   );

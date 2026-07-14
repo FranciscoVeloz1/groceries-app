@@ -1,89 +1,84 @@
 import { useState } from 'react';
-import type { AuthStatus } from '../auth/AuthProvider';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../auth/AuthProvider';
+import { useCart } from '../hooks/useCart';
 import { useCategories } from '../hooks/useCategories';
+import { ROUTES } from '../config/routes';
 import { SearchBar } from '../components/SearchBar';
 import { CategoryCard } from '../components/CategoryCard';
 import { CartBadge } from '../components/CartBadge';
 import styles from './CategoriesPage.module.css';
 
-type Props = {
-  onSelectCategory: (categoryId: number) => void;
-  cartCount: number;
-  onCartClick: () => void;
-  authStatus: AuthStatus;
-  isGroceriesAdmin: boolean;
-  onAdminClick: () => void;
-  onLogout: () => void;
-};
-
-export function CategoriesPage({
-  onSelectCategory,
-  cartCount,
-  onCartClick,
-  authStatus,
-  isGroceriesAdmin,
-  onAdminClick,
-  onLogout
-}: Props) {
+export function CategoriesPage() {
   const { entries } = useCategories();
+  const { totalItems } = useCart();
+  const { status, isGroceriesAdmin, logout } = useAuth();
+  const navigate = useNavigate();
   const [search, setSearch] = useState('');
 
   const filtered = search
-    ? entries.filter((category) => {
-        return category.name.toLowerCase().includes(search.toLowerCase());
-      })
+    ? entries.filter((category) => category.name.toLowerCase().includes(search.toLowerCase()))
     : entries;
+
+  const handleLogout = async () => {
+    await logout();
+    navigate(ROUTES.CATEGORIES);
+  };
 
   return (
     <div className={styles.page}>
       <div className={styles.header}>
         <h1 className={styles.title}>Categories</h1>
-        <CartBadge count={cartCount} onClick={onCartClick} />
+        <CartBadge count={totalItems} onClick={() => navigate(ROUTES.CART)} />
       </div>
 
-      <SearchBar
-        value={search}
-        onChange={setSearch}
-        placeholder="Search for a category..."
-      />
+      <SearchBar value={search} onChange={setSearch} placeholder="Search for a category..." />
 
       <div className={styles.grid}>
-        {filtered.map((cat) => {
-          return (
-            <CategoryCard
-              key={cat.id}
-              name={cat.name}
-              onClick={() => {
-                onSelectCategory(cat.id);
-              }}
-            />
-          );
-        })}
+        {filtered.map((cat) => (
+          <CategoryCard
+            key={cat.id}
+            name={cat.name}
+            onClick={() => navigate(`/products/${cat.id}`)}
+          />
+        ))}
       </div>
 
       <div className={styles.adminBar}>
-        {authStatus === 'anonymous' || authStatus === 'bootstrapping' ? (
-          <button type="button" className={styles.adminLink} onClick={onAdminClick}>
+        {status === 'anonymous' || status === 'bootstrapping' ? (
+          <Link to={ROUTES.LOGIN} className={styles.adminLink}>
             Admin
-          </button>
+          </Link>
         ) : null}
 
-        {authStatus === 'authenticated' && isGroceriesAdmin ? (
+        {status === 'authenticated' && isGroceriesAdmin ? (
           <div className={styles.adminAuthenticated}>
             <span className={styles.liveLabel}>Catálogo (guest JSON abajo)</span>
-            <button type="button" className={styles.adminLink} onClick={onAdminClick}>
+            <Link to={ROUTES.ADMIN_PRODUCTS} className={styles.adminLink}>
               Panel admin
-            </button>
-            <button type="button" className={styles.logoutLink} onClick={onLogout}>
+            </Link>
+            <button
+              type="button"
+              className={styles.logoutLink}
+              onClick={() => {
+                void handleLogout();
+              }}
+            >
               Salir
             </button>
           </div>
         ) : null}
 
-        {authStatus === 'authenticated' && !isGroceriesAdmin ? (
+        {status === 'authenticated' && !isGroceriesAdmin ? (
           <div className={styles.adminAuthenticated}>
             <span className={styles.liveLabel}>Sin permiso de administrador</span>
-            <button type="button" className={styles.logoutLink} onClick={onLogout}>
+            <button
+              type="button"
+              className={styles.logoutLink}
+              onClick={() => {
+                void handleLogout();
+              }}
+            >
               Salir
             </button>
           </div>

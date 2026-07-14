@@ -1,8 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import * as groceriesApi from '../api/groceries';
 import { ApiError } from '../api/http';
 import type { ApiProduct, ApiTripItem, TripItemInput } from '../api/types';
-import { AdminNav, type AdminPage } from '../components/AdminNav';
+import { AdminNav } from '../components/AdminNav';
+import { ROUTES } from '../config/routes';
 import { categories } from '../data/categories';
 import { useAdminTrips } from '../hooks/useAdminTrips';
 import type { CategoryId } from '../types/domain';
@@ -19,13 +21,6 @@ type EditableItem = {
   listPrice: number;
   realPrice: number | null;
   sortOrder: number;
-};
-
-type Props = {
-  onNavigate: (page: AdminPage) => void;
-  onLogout: () => void;
-  onBrowseCatalog: () => void;
-  onCompleted: (tripId: string) => void;
 };
 
 function toEditable(items: ApiTripItem[]): EditableItem[] {
@@ -57,13 +52,9 @@ function toTripInputs(items: EditableItem[]): TripItemInput[] {
   });
 }
 
-export function AdminShoppingPage({
-  onNavigate,
-  onLogout,
-  onBrowseCatalog,
-  onCompleted
-}: Props) {
+export function AdminShoppingPage() {
   const trips = useAdminTrips();
+  const navigate = useNavigate();
   const [items, setItems] = useState<EditableItem[]>([]);
   const [catalog, setCatalog] = useState<ApiProduct[]>([]);
   const [saving, setSaving] = useState(false);
@@ -141,7 +132,7 @@ export function AdminShoppingPage({
       const draft = await ensureDraft();
       await trips.saveItems(draft.id, toTripInputs(items));
       const completed = await trips.complete(draft.id);
-      onCompleted(completed.id);
+      navigate(ROUTES.ADMIN_HISTORY_TRIP.replace(':tripId', completed.id), { replace: true });
     } catch (caught) {
       const text =
         caught instanceof ApiError
@@ -249,12 +240,7 @@ export function AdminShoppingPage({
         <span className={styles.badge}>Precio Real</span>
       </div>
 
-      <AdminNav
-        active="admin-shopping"
-        onNavigate={onNavigate}
-        onLogout={onLogout}
-        onBrowseCatalog={onBrowseCatalog}
-      />
+      <AdminNav />
 
       {trips.loading && !trips.activeDraft ? (
         <p className={styles.status}>Cargando borrador…</p>

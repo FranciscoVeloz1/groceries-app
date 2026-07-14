@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { ApiError } from '../api/http';
 import type { ApiTrip } from '../api/types';
-import { AdminNav, type AdminPage } from '../components/AdminNav';
+import { AdminNav } from '../components/AdminNav';
 import { categories } from '../data/categories';
 import { useAdminTrips } from '../hooks/useAdminTrips';
 import type { CategoryId } from '../types/domain';
@@ -9,19 +10,8 @@ import { groupTripItemsByCategory } from '../utils/groupTripItemsByCategory';
 import { lineListTotal, lineRealTotal, sumList, sumReal } from '../utils/tripTotals';
 import styles from './AdminHistoryPage.module.css';
 
-type Props = {
-  onNavigate: (page: AdminPage) => void;
-  onLogout: () => void;
-  onBrowseCatalog: () => void;
-  initialTripId?: string | null;
-};
-
-export function AdminHistoryPage({
-  onNavigate,
-  onLogout,
-  onBrowseCatalog,
-  initialTripId = null
-}: Props) {
+export function AdminHistoryPage() {
+  const { tripId } = useParams<{ tripId: string }>();
   const trips = useAdminTrips();
   const [selected, setSelected] = useState<ApiTrip | null>(null);
   const [message, setMessage] = useState<string | null>(null);
@@ -30,14 +20,14 @@ export function AdminHistoryPage({
     void (async () => {
       try {
         const list = await trips.loadCompleted();
-        if (initialTripId) {
+        if (tripId) {
           const match = list.find((trip) => {
-            return trip.id === initialTripId;
+            return trip.id === tripId;
           });
           if (match) {
             setSelected(match);
           } else {
-            const trip = await trips.loadTrip(initialTripId);
+            const trip = await trips.loadTrip(tripId);
             setSelected(trip);
           }
         }
@@ -51,7 +41,7 @@ export function AdminHistoryPage({
         setMessage(text);
       }
     })();
-  }, [initialTripId]);
+  }, [tripId]);
 
   const selectedGroups = useMemo(() => {
     if (!selected) {
@@ -89,12 +79,7 @@ export function AdminHistoryPage({
         <h1 className={styles.title}>Historial</h1>
       </div>
 
-      <AdminNav
-        active="admin-history"
-        onNavigate={onNavigate}
-        onLogout={onLogout}
-        onBrowseCatalog={onBrowseCatalog}
-      />
+      <AdminNav />
 
       {message ? <p className={styles.message}>{message}</p> : null}
       {trips.loading && trips.completedTrips.length === 0 ? (

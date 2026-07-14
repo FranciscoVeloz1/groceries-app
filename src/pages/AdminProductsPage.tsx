@@ -1,17 +1,11 @@
 import { useState, type FormEvent } from 'react';
 import { ApiError } from '../api/http';
 import type { ApiProduct } from '../api/types';
-import { AdminNav, type AdminPage } from '../components/AdminNav';
+import { AdminNav } from '../components/AdminNav';
 import { categories } from '../data/categories';
 import { useAdminProducts } from '../hooks/useAdminProducts';
 import type { CategoryId } from '../types/domain';
 import styles from './AdminProductsPage.module.css';
-
-type Props = {
-  onNavigate: (page: AdminPage) => void;
-  onLogout: () => void;
-  onBrowseCatalog: () => void;
-};
 
 type FormState = {
   name: string;
@@ -27,7 +21,7 @@ const EMPTY_FORM: FormState = {
   image: ''
 };
 
-export function AdminProductsPage({ onNavigate, onLogout, onBrowseCatalog }: Props) {
+export function AdminProductsPage() {
   const { state, create, update, remove, reload } = useAdminProducts();
   const [form, setForm] = useState<FormState>(EMPTY_FORM);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -121,12 +115,7 @@ export function AdminProductsPage({ onNavigate, onLogout, onBrowseCatalog }: Pro
         <span className={styles.badge}>Catálogo en vivo</span>
       </div>
 
-      <AdminNav
-        active="admin-products"
-        onNavigate={onNavigate}
-        onLogout={onLogout}
-        onBrowseCatalog={onBrowseCatalog}
-      />
+      <AdminNav />
 
       {state.status === 'loading' && state.products.length === 0 ? (
         <p className={styles.status}>Cargando productos…</p>
