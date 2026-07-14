@@ -4,7 +4,7 @@ import { useCategories } from "../hooks/useCategories";
 import { SearchBar } from "../components/SearchBar";
 import { ProductCard } from "../components/ProductCard";
 import { CartBadge } from "../components/CartBadge";
-import type { Product } from "../types";
+import type { Product } from '../types/domain';
 import styles from "./ProductListPage.module.css";
 
 type Props = {

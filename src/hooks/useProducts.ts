@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import productsData from "../../data/products.json";
-import type { Product } from "../types";
+import type { Product } from '../types/domain';
 
 const products: Product[] = productsData;
 

@@ -4,7 +4,7 @@ import type { ApiProduct } from '../api/types';
 import { AdminNav, type AdminPage } from '../components/AdminNav';
 import { categories } from '../data/categories';
 import { useAdminProducts } from '../hooks/useAdminProducts';
-import type { CategoryId } from '../types';
+import type { CategoryId } from '../types/domain';
 import styles from './AdminProductsPage.module.css';
 
 type Props = {

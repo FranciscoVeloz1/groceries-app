@@ -1,6 +1,6 @@
 import type { CartItem } from "../hooks/useCart";
 import { categories } from "../data/categories";
-import type { Categories } from "../types";
+import type { Categories } from '../types/domain';
 import { downloadFile } from "./downloadFile";
 import { FILE_BASENAME } from "./groceryList";
 

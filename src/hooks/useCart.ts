@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useRef, useState } from "react";
-import type { Product } from "../types";
+import type { Product } from '../types/domain';
 
 export type CartItem = {
   product: Product;

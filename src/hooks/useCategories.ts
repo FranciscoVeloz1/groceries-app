@@ -1,5 +1,5 @@
 import { categories } from "../data/categories";
-import type { CategoryId } from "../types";
+import type { CategoryId } from '../types/domain';
 
 export function useCategories() {
   const entries = (Object.entries(categories) as [string, string][]).map(

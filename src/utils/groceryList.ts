@@ -1,5 +1,5 @@
 import type { CartItem } from "../hooks/useCart";
-import type { Product } from "../types";
+import type { Product } from '../types/domain';
 
 export const GROCERY_LIST_VERSION = 1;
 export const FILE_BASENAME = "lista-de-mandado";

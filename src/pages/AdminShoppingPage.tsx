@@ -5,7 +5,7 @@ import type { ApiProduct, ApiTripItem, TripItemInput } from '../api/types';
 import { AdminNav, type AdminPage } from '../components/AdminNav';
 import { categories } from '../data/categories';
 import { useAdminTrips } from '../hooks/useAdminTrips';
-import type { CategoryId } from '../types';
+import type { CategoryId } from '../types/domain';
 import { groupTripItemsByCategory } from '../utils/groupTripItemsByCategory';
 import { lineListTotal, lineRealTotal, sumList, sumReal } from '../utils/tripTotals';
 import styles from './AdminShoppingPage.module.css';
