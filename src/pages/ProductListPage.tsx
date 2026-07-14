@@ -31,18 +31,28 @@ export function ProductListPage({
   const categoryName = categories[categoryId as keyof typeof categories];
 
   const [customName, setCustomName] = useState("");
-  const [customQty, setCustomQty] = useState(1);
-  const [customPrice, setCustomPrice] = useState(0);
+  const [customQty, setCustomQty] = useState("1");
+  const [customPrice, setCustomPrice] = useState("");
 
   const handleAddCustom = (e: React.FormEvent) => {
     e.preventDefault();
     const trimmed = customName.trim();
-    if (!trimmed || customQty < 1 || customPrice < 0) return;
+    const quantity = Number(customQty);
+    const price = Number(customPrice);
+    if (
+      !trimmed ||
+      Number.isNaN(quantity) ||
+      quantity < 1 ||
+      Number.isNaN(price) ||
+      price < 0
+    ) {
+      return;
+    }
 
-    onAddCustom({ name: trimmed, quantity: customQty, price: customPrice });
+    onAddCustom({ name: trimmed, quantity, price });
     setCustomName("");
-    setCustomQty(1);
-    setCustomPrice(0);
+    setCustomQty("1");
+    setCustomPrice("");
   };
 
   return (
@@ -82,7 +92,9 @@ export function ProductListPage({
                 type="text"
                 placeholder="Product name"
                 value={customName}
-                onChange={(e) => setCustomName(e.target.value)}
+                onChange={(e) => {
+                  setCustomName(e.target.value);
+                }}
                 required
               />
             </label>
@@ -94,7 +106,9 @@ export function ProductListPage({
                 placeholder="1"
                 min={1}
                 value={customQty}
-                onChange={(e) => setCustomQty(Number(e.target.value))}
+                onChange={(e) => {
+                  setCustomQty(e.target.value);
+                }}
                 required
               />
             </label>
@@ -107,7 +121,9 @@ export function ProductListPage({
                 min={0}
                 step={0.01}
                 value={customPrice}
-                onChange={(e) => setCustomPrice(Number(e.target.value))}
+                onChange={(e) => {
+                  setCustomPrice(e.target.value);
+                }}
                 required
               />
             </label>
@@ -119,12 +135,14 @@ export function ProductListPage({
       )}
 
       <div className={styles.grid}>
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} onAdd={onAddToCart} />
-        ))}
-        {products.length === 0 && (
+        {products.map((product) => {
+          return (
+            <ProductCard key={product.id} product={product} onAdd={onAddToCart} />
+          );
+        })}
+        {products.length === 0 ? (
           <p className={styles.empty}>No products found.</p>
-        )}
+        ) : null}
       </div>
     </div>
   );
