@@ -11,13 +11,14 @@ export async function exportToExcel(items: CartItem[]) {
 
   const defaultFont = { name: "Arial" as const, size: 11 };
 
-  // Set column widths
+  // Set column widths (aligned with write order)
   sheet.columns = [
     { key: "name", width: 30 },
     { key: "quantity", width: 12 },
     { key: "price", width: 15 },
-    { key: "realPrice", width: 15 },
     { key: "total", width: 15 },
+    { key: "realPrice", width: 15 },
+    { key: "realGrandTotal", width: 15 },
   ];
 
   // Group items by category
@@ -29,6 +30,7 @@ export async function exportToExcel(items: CartItem[]) {
   }
 
   let grandTotal = 0;
+  const realSubtotalRefs: string[] = [];
 
   for (const [catId, catItems] of grouped) {
     const catName =
@@ -59,6 +61,9 @@ export async function exportToExcel(items: CartItem[]) {
 
     // Items
     let categoryTotal = 0;
+    let firstItemRow: number | null = null;
+    let lastItemRow: number | null = null;
+
     for (const item of catItems) {
       const lineTotal = item.product.price * item.quantity;
 
@@ -72,16 +77,30 @@ export async function exportToExcel(items: CartItem[]) {
         "",
       ]);
 
+      if (firstItemRow === null) firstItemRow = row.number;
+      lastItemRow = row.number;
+
       row.font = defaultFont;
       row.getCell(3).numFmt = "$#,##0.00";
       row.getCell(4).numFmt = "$#,##0.00";
       row.getCell(5).numFmt = "$#,##0.00";
     }
 
-    // Category subtotal
+    // Category subtotal — list price in D, SUM of Precio Real in E
     const subtotalRow = sheet.addRow(["", "", "Subtotal", categoryTotal]);
     subtotalRow.font = { ...defaultFont, bold: true, italic: true };
     subtotalRow.getCell(4).numFmt = "$#,##0.00";
+
+    const realSubtotalCell = subtotalRow.getCell(5);
+    realSubtotalCell.numFmt = "$#,##0.00";
+    if (firstItemRow !== null && lastItemRow !== null) {
+      realSubtotalCell.value = {
+        formula: `SUM(E${firstItemRow}:E${lastItemRow})`,
+      };
+    } else {
+      realSubtotalCell.value = 0;
+    }
+    realSubtotalRefs.push(`E${subtotalRow.number}`);
 
     grandTotal += categoryTotal;
 
@@ -89,13 +108,22 @@ export async function exportToExcel(items: CartItem[]) {
     sheet.addRow([]);
   }
 
-  // Grand total
+  // Grand total — list price in E, SUM of real subtotals in F
   const totalRow = sheet.addRow(["", "", "", "TOTAL", grandTotal]);
   totalRow.font = { ...defaultFont, bold: true, size: 14 };
   totalRow.getCell(5).numFmt = "$#,##0.00";
   totalRow.border = {
     top: { style: "double", color: { argb: "FF000000" } },
   };
+
+  if (realSubtotalRefs.length > 0) {
+    const realGrandTotalCell = totalRow.getCell(6);
+    realGrandTotalCell.value = {
+      formula: `SUM(${realSubtotalRefs.join(",")})`,
+    };
+    realGrandTotalCell.numFmt = "$#,##0.00";
+    realGrandTotalCell.font = { ...defaultFont, bold: true, size: 14 };
+  }
 
   // Generate and download
   const buffer = await workbook.xlsx.writeBuffer();
