@@ -63,7 +63,15 @@ export function useAdminProducts() {
   }, [isGroceriesAdmin]);
 
   useEffect(() => {
-    void load();
+    let cancelled = false;
+    queueMicrotask(() => {
+      if (!cancelled) {
+        void load();
+      }
+    });
+    return () => {
+      cancelled = true;
+    };
   }, [load]);
 
   const create = useCallback(async (body: CreateProductBody) => {
