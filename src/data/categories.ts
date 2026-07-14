@@ -1,4 +1,4 @@
-import type { Categories } from '../types';
+import type { Categories } from '../types/domain';
 
 export const categories: Categories = {
   1: "Limpieza personal",

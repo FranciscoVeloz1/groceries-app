@@ -1,32 +1,23 @@
-import { useRef } from "react";
-import type { CartItem } from "../hooks/useCart";
-import { useCategories } from "../hooks/useCategories";
-import { exportToExcel } from "../utils/exportToExcel";
-import { exportToJson } from "../utils/exportToJson";
-import { parseGroceryList } from "../utils/groceryList";
-import styles from "./CartPage.module.css";
+import { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../auth/AuthProvider';
+import { useCart } from '../hooks/useCart';
+import { useAdminTrips } from '../hooks/useAdminTrips';
+import { useCategories } from '../hooks/useCategories';
+import { ROUTES } from '../config/routes';
+import { exportToExcel } from '../utils/exportToExcel';
+import { exportToJson } from '../utils/exportToJson';
+import { parseGroceryList } from '../utils/groceryList';
+import styles from './CartPage.module.css';
 
-type Props = {
-  items: CartItem[];
-  totalPrice: number;
-  onBack: () => void;
-  onUpdateQuantity: (productId: number, quantity: number) => void;
-  onRemove: (productId: number) => void;
-  onClear: () => void;
-  onImport: (items: CartItem[]) => void;
-};
-
-export function CartPage({
-  items,
-  totalPrice,
-  onBack,
-  onUpdateQuantity,
-  onRemove,
-  onClear,
-  onImport,
-}: Props) {
+export function CartPage() {
+  const { items, totalPrice, updateQuantity, removeFromCart, clearCart, importCart } = useCart();
+  const { isGroceriesAdmin } = useAuth();
   const { categories } = useCategories();
+  const trips = useAdminTrips();
+  const navigate = useNavigate();
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [starting, setStarting] = useState(false);
 
   const handleImportClick = () => {
     fileInputRef.current?.click();
@@ -35,19 +26,31 @@ export function CartPage({
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-
     try {
       const raw = await file.text();
       const parsed = parseGroceryList(raw);
-      onImport(parsed);
+      importCart(parsed);
     } catch (err) {
-      alert(err instanceof Error ? err.message : "Failed to import file.");
+      alert(err instanceof Error ? err.message : 'Failed to import file.');
     }
-
-    e.target.value = "";
+    e.target.value = '';
   };
 
-  const grouped = new Map<number, CartItem[]>();
+  const startShopping = async () => {
+    setStarting(true);
+    try {
+      await trips.createFromCartItems(items);
+      clearCart();
+      navigate(ROUTES.ADMIN_SHOPPING);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'No se pudo iniciar el mandado';
+      window.alert(message);
+    } finally {
+      setStarting(false);
+    }
+  };
+
+  const grouped = new Map<number, (typeof items)[number][]>();
   for (const item of items) {
     const cat = item.product.category;
     if (!grouped.has(cat)) grouped.set(cat, []);
@@ -57,11 +60,7 @@ export function CartPage({
   return (
     <div className={styles.page}>
       <div className={styles.header}>
-        <button
-          className={styles.backBtn}
-          onClick={onBack}
-          aria-label="Go back"
-        >
+        <button className={styles.backBtn} onClick={() => navigate(-1)} aria-label="Go back">
           <svg
             width="22"
             height="22"
@@ -88,7 +87,7 @@ export function CartPage({
             hidden
           />
           {items.length > 0 && (
-            <button className={styles.clearBtn} onClick={onClear}>
+            <button className={styles.clearBtn} onClick={clearCart}>
               Clear
             </button>
           )}
@@ -108,9 +107,7 @@ export function CartPage({
                 {catItems.map((item) => (
                   <div key={item.product.id} className={styles.item}>
                     <div className={styles.itemInfo}>
-                      <span className={styles.itemName}>
-                        {item.product.name}
-                      </span>
+                      <span className={styles.itemName}>{item.product.name}</span>
                       <span className={styles.itemPrice}>
                         ${(item.product.price * item.quantity).toFixed(2)}
                       </span>
@@ -118,12 +115,7 @@ export function CartPage({
                     <div className={styles.controls}>
                       <button
                         className={styles.qtyBtn}
-                        onClick={() =>
-                          onUpdateQuantity(
-                            item.product.id,
-                            item.quantity - 1,
-                          )
-                        }
+                        onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
                         aria-label="Decrease quantity"
                       >
                         -
@@ -131,19 +123,14 @@ export function CartPage({
                       <span className={styles.qty}>{item.quantity}</span>
                       <button
                         className={styles.qtyBtn}
-                        onClick={() =>
-                          onUpdateQuantity(
-                            item.product.id,
-                            item.quantity + 1,
-                          )
-                        }
+                        onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
                         aria-label="Increase quantity"
                       >
                         +
                       </button>
                       <button
                         className={styles.removeBtn}
-                        onClick={() => onRemove(item.product.id)}
+                        onClick={() => removeFromCart(item.product.id)}
                         aria-label={`Remove ${item.product.name}`}
                       >
                         <svg
@@ -172,21 +159,24 @@ export function CartPage({
           <div className={styles.footer}>
             <div className={styles.total}>
               <span>Total</span>
-              <span className={styles.totalPrice}>
-                ${totalPrice.toFixed(2)}
-              </span>
+              <span className={styles.totalPrice}>${totalPrice.toFixed(2)}</span>
             </div>
             <div className={styles.exportActions}>
-              <button
-                className={styles.exportBtn}
-                onClick={() => exportToExcel(items)}
-              >
+              {isGroceriesAdmin && items.length > 0 ? (
+                <button
+                  className={styles.exportBtn}
+                  onClick={() => {
+                    void startShopping();
+                  }}
+                  disabled={starting}
+                >
+                  {starting ? 'Iniciando…' : 'Iniciar mandado (precios reales)'}
+                </button>
+              ) : null}
+              <button className={styles.exportBtn} onClick={() => exportToExcel(items)}>
                 Export Excel
               </button>
-              <button
-                className={styles.exportBtnSecondary}
-                onClick={() => exportToJson(items)}
-              >
+              <button className={styles.exportBtnSecondary} onClick={() => exportToJson(items)}>
                 Export JSON
               </button>
             </div>

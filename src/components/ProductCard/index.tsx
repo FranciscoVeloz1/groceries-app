@@ -1,4 +1,4 @@
-import type { Product } from "../types";
+import type { Product } from '../../types/domain';
 
 import styles from "./ProductCard.module.css";
 

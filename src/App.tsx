@@ -1,60 +1,57 @@
-import { useState } from "react";
-import { CategoriesPage } from "./pages/CategoriesPage";
-import { ProductListPage } from "./pages/ProductListPage";
-import { CartPage } from "./pages/CartPage";
-import { useCart } from "./hooks/useCart";
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { RequireAdmin } from './auth/RequireAdmin';
+import { ROUTES } from './config/routes';
+import { AdminHistoryPage } from './pages/AdminHistoryPage';
+import { AdminProductsPage } from './pages/AdminProductsPage';
+import { AdminShoppingPage } from './pages/AdminShoppingPage';
+import { CartPage } from './pages/CartPage';
+import { CategoriesPage } from './pages/CategoriesPage';
+import { ForbiddenPage } from './pages/ForbiddenPage';
+import { LoginPage } from './pages/LoginPage';
+import { ProductListPage } from './pages/ProductListPage';
 
-type View =
-  | { page: "categories" }
-  | { page: "products"; categoryId: number }
-  | { page: "cart" };
-
-const App = () => {
-  const cart = useCart();
-  const [view, setView] = useState<View>({ page: "categories" });
-  const [prevView, setPrevView] = useState<View>({ page: "categories" });
-
-  const goToCart = () => {
-    setPrevView(view);
-    setView({ page: "cart" });
-  };
-
-  if (view.page === "cart") {
-    return (
-      <CartPage
-        items={cart.items}
-        totalPrice={cart.totalPrice}
-        onBack={() => setView(prevView)}
-        onUpdateQuantity={cart.updateQuantity}
-        onRemove={cart.removeFromCart}
-        onClear={cart.clearCart}
-        onImport={cart.importCart}
-      />
-    );
-  }
-
-  if (view.page === "products") {
-    return (
-      <ProductListPage
-        categoryId={view.categoryId}
-        onBack={() => setView({ page: "categories" })}
-        onAddToCart={cart.addToCart}
-        onAddCustom={cart.addCustomItem}
-        cartCount={cart.totalItems}
-        onCartClick={goToCart}
-      />
-    );
-  }
-
+export default function App() {
   return (
-    <CategoriesPage
-      onSelectCategory={(categoryId) =>
-        setView({ page: "products", categoryId })
-      }
-      cartCount={cart.totalItems}
-      onCartClick={goToCart}
-    />
+    <Routes>
+      <Route path={ROUTES.CATEGORIES} element={<CategoriesPage />} />
+      <Route path={ROUTES.PRODUCTS} element={<ProductListPage />} />
+      <Route path={ROUTES.CART} element={<CartPage />} />
+      <Route path={ROUTES.LOGIN} element={<LoginPage />} />
+      <Route path={ROUTES.ADMIN} element={<Navigate to={ROUTES.ADMIN_PRODUCTS} replace />} />
+      <Route
+        path={ROUTES.ADMIN_PRODUCTS}
+        element={
+          <RequireAdmin>
+            <AdminProductsPage />
+          </RequireAdmin>
+        }
+      />
+      <Route
+        path={ROUTES.ADMIN_SHOPPING}
+        element={
+          <RequireAdmin>
+            <AdminShoppingPage />
+          </RequireAdmin>
+        }
+      />
+      <Route
+        path={ROUTES.ADMIN_HISTORY}
+        element={
+          <RequireAdmin>
+            <AdminHistoryPage />
+          </RequireAdmin>
+        }
+      />
+      <Route
+        path={ROUTES.ADMIN_HISTORY_TRIP}
+        element={
+          <RequireAdmin>
+            <AdminHistoryPage />
+          </RequireAdmin>
+        }
+      />
+      <Route path={ROUTES.FORBIDDEN} element={<ForbiddenPage />} />
+      <Route path="*" element={<Navigate to={ROUTES.CATEGORIES} replace />} />
+    </Routes>
   );
-};
-
-export default App;
+}
