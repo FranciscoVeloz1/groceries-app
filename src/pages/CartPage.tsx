@@ -14,6 +14,9 @@ type Props = {
   onRemove: (productId: number) => void;
   onClear: () => void;
   onImport: (items: CartItem[]) => void;
+  isGroceriesAdmin?: boolean;
+  onStartAdminShopping?: () => void;
+  startingAdminShopping?: boolean;
 };
 
 export function CartPage({
@@ -24,6 +27,9 @@ export function CartPage({
   onRemove,
   onClear,
   onImport,
+  isGroceriesAdmin = false,
+  onStartAdminShopping,
+  startingAdminShopping = false,
 }: Props) {
   const { categories } = useCategories();
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -177,6 +183,17 @@ export function CartPage({
               </span>
             </div>
             <div className={styles.exportActions}>
+              {isGroceriesAdmin && onStartAdminShopping && items.length > 0 ? (
+                <button
+                  className={styles.exportBtn}
+                  onClick={onStartAdminShopping}
+                  disabled={startingAdminShopping}
+                >
+                  {startingAdminShopping
+                    ? 'Iniciando…'
+                    : 'Iniciar mandado (precios reales)'}
+                </button>
+              ) : null}
               <button
                 className={styles.exportBtn}
                 onClick={() => exportToExcel(items)}

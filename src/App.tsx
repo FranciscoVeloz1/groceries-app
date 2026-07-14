@@ -1,14 +1,15 @@
 import { useCallback, useState } from 'react';
 import type { AdminPage } from './components/AdminNav';
-import { AdminNav } from './components/AdminNav';
 import { useAuth } from './auth/AuthProvider';
 import { useCart } from './hooks/useCart';
+import { useAdminTrips } from './hooks/useAdminTrips';
+import { AdminHistoryPage } from './pages/AdminHistoryPage';
 import { AdminProductsPage } from './pages/AdminProductsPage';
+import { AdminShoppingPage } from './pages/AdminShoppingPage';
 import { CartPage } from './pages/CartPage';
 import { CategoriesPage } from './pages/CategoriesPage';
 import { LoginPage } from './pages/LoginPage';
 import { ProductListPage } from './pages/ProductListPage';
-import styles from './pages/AdminProductsPage.module.css';
 
 type View =
   | { page: 'categories' }
@@ -17,40 +18,15 @@ type View =
   | { page: 'login' }
   | { page: 'admin-products' }
   | { page: 'admin-shopping' }
-  | { page: 'admin-history' };
-
-function AdminPlaceholder({
-  title,
-  active,
-  onNavigate,
-  onLogout,
-  onBrowseCatalog
-}: {
-  title: string;
-  active: AdminPage;
-  onNavigate: (page: AdminPage) => void;
-  onLogout: () => void;
-  onBrowseCatalog: () => void;
-}) {
-  return (
-    <div className={styles.page}>
-      <h1 className={styles.title}>{title}</h1>
-      <AdminNav
-        active={active}
-        onNavigate={onNavigate}
-        onLogout={onLogout}
-        onBrowseCatalog={onBrowseCatalog}
-      />
-      <p className={styles.status}>Coming in next task</p>
-    </div>
-  );
-}
+  | { page: 'admin-history'; tripId?: string };
 
 const App = () => {
   const cart = useCart();
   const { logout, isGroceriesAdmin, status } = useAuth();
+  const trips = useAdminTrips();
   const [view, setView] = useState<View>({ page: 'categories' });
   const [prevView, setPrevView] = useState<View>({ page: 'categories' });
+  const [startingTrip, setStartingTrip] = useState(false);
 
   const goToCart = () => {
     setPrevView(view);
@@ -69,6 +45,21 @@ const App = () => {
   const browseCatalog = useCallback(() => {
     setView({ page: 'categories' });
   }, []);
+
+  const startShoppingFromCart = useCallback(async () => {
+    setStartingTrip(true);
+    try {
+      await trips.createFromCartItems(cart.items);
+      cart.clearCart();
+      setView({ page: 'admin-shopping' });
+    } catch (caught) {
+      const message =
+        caught instanceof Error ? caught.message : 'No se pudo iniciar el mandado';
+      window.alert(message);
+    } finally {
+      setStartingTrip(false);
+    }
+  }, [cart, trips]);
 
   if (view.page === 'login') {
     return (
@@ -108,7 +99,7 @@ const App = () => {
     );
   }
 
-  if (view.page === 'admin-shopping' || view.page === 'admin-history') {
+  if (view.page === 'admin-shopping') {
     if (!isGroceriesAdmin) {
       return (
         <LoginPage
@@ -116,21 +107,48 @@ const App = () => {
             setView({ page: 'categories' });
           }}
           onSuccessAdmin={() => {
-            setView({ page: view.page });
+            setView({ page: 'admin-shopping' });
           }}
         />
       );
     }
 
     return (
-      <AdminPlaceholder
-        title={view.page === 'admin-shopping' ? 'Compra' : 'Historial'}
-        active={view.page}
+      <AdminShoppingPage
         onNavigate={handleAdminNavigate}
         onLogout={() => {
           void handleLogout();
         }}
         onBrowseCatalog={browseCatalog}
+        onCompleted={(tripId) => {
+          setView({ page: 'admin-history', tripId });
+        }}
+      />
+    );
+  }
+
+  if (view.page === 'admin-history') {
+    if (!isGroceriesAdmin) {
+      return (
+        <LoginPage
+          onBack={() => {
+            setView({ page: 'categories' });
+          }}
+          onSuccessAdmin={() => {
+            setView({ page: 'admin-history' });
+          }}
+        />
+      );
+    }
+
+    return (
+      <AdminHistoryPage
+        onNavigate={handleAdminNavigate}
+        onLogout={() => {
+          void handleLogout();
+        }}
+        onBrowseCatalog={browseCatalog}
+        initialTripId={view.tripId ?? null}
       />
     );
   }
@@ -147,6 +165,11 @@ const App = () => {
         onRemove={cart.removeFromCart}
         onClear={cart.clearCart}
         onImport={cart.importCart}
+        isGroceriesAdmin={isGroceriesAdmin}
+        onStartAdminShopping={() => {
+          void startShoppingFromCart();
+        }}
+        startingAdminShopping={startingTrip}
       />
     );
   }
