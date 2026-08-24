@@ -1,5 +1,10 @@
 # Mandado App
 
+## Status
+
+- **Stage:** in progress
+- **Audited:** 2026-08-23
+
 A mobile-first grocery listing web app. Browse products by category, build a shopping cart, and export it as an Excel file.
 
 ## Features
