@@ -42,9 +42,28 @@ export function parseGroceryList(raw: string): CartItem[] {
     throw new Error("The file contains no items.");
   }
 
+  return parseCartItemList(file.items);
+}
+
+export function parseStoredCart(raw: string): CartItem[] {
+  let data: unknown;
+  try {
+    data = JSON.parse(raw);
+  } catch {
+    throw new Error("The saved cart is not valid JSON.");
+  }
+
+  if (!Array.isArray(data)) {
+    throw new Error("The saved cart is not a list.");
+  }
+
+  return parseCartItemList(data);
+}
+
+function parseCartItemList(entries: unknown[]): CartItem[] {
   const items: CartItem[] = [];
 
-  for (const entry of file.items) {
+  for (const entry of entries) {
     if (typeof entry !== "object" || entry === null) {
       throw new Error("Each item must be an object.");
     }

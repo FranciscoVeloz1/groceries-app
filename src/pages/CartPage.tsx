@@ -88,7 +88,19 @@ export function CartPage({
             hidden
           />
           {items.length > 0 && (
-            <button className={styles.clearBtn} onClick={onClear}>
+            <button
+              className={styles.clearBtn}
+              onClick={() => {
+                if (
+                  !window.confirm(
+                    "Clear the cart? Saved items in this browser will be erased.",
+                  )
+                ) {
+                  return;
+                }
+                onClear();
+              }}
+            >
               Clear
             </button>
           )}

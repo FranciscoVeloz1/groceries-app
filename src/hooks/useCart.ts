@@ -1,14 +1,52 @@
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Product } from "../types";
+import { parseStoredCart } from "../utils/groceryList";
+
+const STORAGE_KEY = "mandado-cart:v1";
 
 export type CartItem = {
   product: Product;
   quantity: number;
 };
 
+function readStored(): Map<number, CartItem> {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) {
+      return new Map();
+    }
+    const parsed = parseStoredCart(raw);
+    return new Map(parsed.map((item) => [item.product.id, item]));
+  } catch {
+    return new Map();
+  }
+}
+
+function writeStored(items: Map<number, CartItem>): void {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify([...items.values()]));
+  } catch {
+    // private mode or quota
+  }
+}
+
+function nextCustomId(ids: Iterable<number>): number {
+  let next = -1;
+  for (const id of ids) {
+    if (id <= next) {
+      next = id - 1;
+    }
+  }
+  return next;
+}
+
 export function useCart() {
-  const [items, setItems] = useState<Map<number, CartItem>>(new Map());
-  const customIdRef = useRef(-1);
+  const [items, setItems] = useState<Map<number, CartItem>>(() => readStored());
+  const customIdRef = useRef(nextCustomId(items.keys()));
+
+  useEffect(() => {
+    writeStored(items);
+  }, [items]);
 
   const addToCart = useCallback((product: Product) => {
     setItems((prev) => {
@@ -57,14 +95,16 @@ export function useCart() {
 
   const addCustomItem = useCallback(
     ({ name, quantity, price }: { name: string; quantity: number; price: number }) => {
-      const product: Product = {
-        id: customIdRef.current--,
-        name,
-        image: "",
-        category: 5,
-        price,
-      };
       setItems((prev) => {
+        const id = nextCustomId(prev.keys());
+        customIdRef.current = id - 1;
+        const product: Product = {
+          id,
+          name,
+          image: "",
+          category: 5,
+          price,
+        };
         const next = new Map(prev);
         next.set(product.id, { product, quantity });
         return next;
@@ -86,6 +126,10 @@ export function useCart() {
         next.set(item.product.id, item);
       }
     }
+    customIdRef.current = Math.min(
+      customIdRef.current,
+      nextCustomId(next.keys()),
+    );
     setItems(next);
   }, []);
 
