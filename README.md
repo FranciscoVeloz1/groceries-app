@@ -2,8 +2,8 @@
 
 ## Status
 
-- **Stage:** in progress
-- **Audited:** 2026-08-23
+- **Stage:** production ready
+- **Audited:** 2026-09-12
 
 A mobile-first grocery listing web app. Browse products by category, build a shopping cart, and export it as an Excel file.
 
